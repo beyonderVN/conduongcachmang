@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { ApolloClient } from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloProvider } from 'react-apollo'
 
+
+const GRAPHCMS_API = 'https://api-apeast.graphcms.com/v1/cjnclrsl31wys01g5ksxz3crg/master'
+​
+const client = new ApolloClient({
+  link: new HttpLink({ uri: GRAPHCMS_API }),
+  cache: new InMemoryCache()
+})
 class App extends Component {
   render() {
     return (
@@ -20,6 +31,9 @@ class App extends Component {
             Learn React
           </a>
         </header>
+        <ApolloProvider client={client}>
+          <App />
+        </ApolloProvider>
       </div>
     );
   }
